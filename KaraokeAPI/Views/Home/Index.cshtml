@@ -1,0 +1,41 @@
+﻿@{
+    var data = new {
+        Title = "Karaoke Jams"
+    };
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+        <title>@data.Title</title>
+        <script src="/Scripts/dist/sweetalert.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/Scripts/dist/sweetalert.css">
+        <link rel="stylesheet" type="text/css" href="/css/index.css">        
+    </head>
+
+    <body>
+        <div id="panes">
+            <div id="queryside">
+                <div>
+                    <div class="search">
+                        <input type="text" id="search" />
+                        <span id="results" style="padding-left: 5px;"></span>
+                    </div>
+                    <h4>^Type your search and press enter.^</h4>
+                    <h4>Click on a link to queue your request!</h4>
+                </div>
+
+                <div id="div1"></div>      
+            </div>
+            <div id="djside">
+                <h3>Queue</h3>
+                <ul id="queue"></ul>
+            </div>
+        </div>  
+
+        <script type="text/javascript" src="/Scripts/index.js"></script>
+    </body>
+</html>

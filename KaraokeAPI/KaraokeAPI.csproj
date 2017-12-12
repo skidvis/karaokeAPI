@@ -8,6 +8,9 @@
     <Folder Include="wwwroot\" />
     <Folder Include="Models\" />
     <Folder Include="Controllers\" />
+    <Folder Include="Views\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="wwwroot\css\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +18,17 @@
     <PackageReference Include="MySql.Data" Version="6.10.5" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="6.10.5" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Scripts\Scripts\dist\sweetalert-dev.js" />
+    <None Remove="Scripts\Scripts\dist\sweetalert.css" />
+    <None Remove="Scripts\Scripts\dist\sweetalert.min.js" />
+    <None Remove="Scripts\.DS_Store" />
+    <None Remove="Scripts\songs.js" />
+    <None Remove="Scripts\dist\sweetalert-dev.js" />
+    <None Remove="Scripts\dist\sweetalert.css" />
+    <None Remove="Scripts\dist\sweetalert.min.js" />
+  </ItemGroup>
 </Project>

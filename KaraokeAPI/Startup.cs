@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using karaokeAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.EntityFrameworkCore;
+using Microsoft.AspNetCore.StaticFiles;
 
 
 namespace KaraokeAPI
@@ -34,8 +35,14 @@ namespace KaraokeAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStaticFiles();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
