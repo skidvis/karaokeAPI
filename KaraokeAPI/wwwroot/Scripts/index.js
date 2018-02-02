@@ -4,7 +4,7 @@
 
   $(document).ready( function() {
     var random = Math.floor((Math.random() * 100) + 1);
-    var songlist = 'https://www.dropbox.com/s/kbrbdv2yrjwefqi/songs.js?dl=1';
+    var songlist = '/Scripts/songs.js?' + random;
     $.get(songlist, function(data) {
        lines = data.split("\n");
        get_query();
