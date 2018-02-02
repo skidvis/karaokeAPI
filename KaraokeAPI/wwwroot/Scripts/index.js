@@ -1,7 +1,6 @@
 ﻿  var lines;
   var queue;
   var urlParams = new URLSearchParams(window.location.search);
-  var url = "http://karaoke.covisco.com";
 
 
   $(document).ready( function() {
@@ -23,7 +22,7 @@
 
   function get_queue(){
     $.ajax({
-      url: url + "/api/queue",
+      url: "/api/queue",
       success:function(result){
           $("#queue").html('');
           
@@ -54,7 +53,7 @@
   function deleter(){
     var id_to_delete = $(this).data("id");
     $.ajax({
-      url: url + '/api/queue/' + id_to_delete,
+      url: '/api/queue/' + id_to_delete,
       type: 'DELETE',
       success: function(result) {
           $("#li-song-" + id_to_delete).css("color", "red");
@@ -94,7 +93,7 @@
 
       $.ajax({
         type: "POST",
-        url: url + "/api/queue",
+        url: "/api/queue",
         data: JSON.stringify({'Singer': inputValue,'Song': this.text}),
         crossDomain: true,
         contentType: "application/json",
