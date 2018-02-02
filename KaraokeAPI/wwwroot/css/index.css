@@ -1,4 +1,13 @@
-﻿.search input[type="text"] {
+﻿body{
+    margin: 0;
+    padding: 0;
+}
+
+#panes{
+    padding: 5px;
+}
+
+.search input[type="text"] {
     padding: 10px;
     border: solid 5px #ccf;
     transition: border 0.3s;
@@ -77,4 +86,14 @@
 
 #djside li {
     list-style-type: none;
+    padding-bottom: 10px;
+}
+
+img.bg {
+    /* Set rules to fill background */
+    min-height: 100%;
+    /* Set up proportionate scaling */
+    width: 100%;
+    height: auto;
+    /* Set up positioning */
 }

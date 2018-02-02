@@ -25,14 +25,7 @@ namespace karaokeAPI.Controllers
         public IEnumerable<SongRequest> Get()
         {
             IEnumerable<SongRequest> songs = _context.SongRequests.Where(b => b.Viewed == false);            
-
-            foreach(SongRequest song in songs){
-                song.Viewed = true;
-            }
-
             IEnumerable<SongRequest> results = songs.ToList();
-
-            _context.SaveChanges();
 
             return results;
         }
@@ -45,5 +38,14 @@ namespace karaokeAPI.Controllers
             _context.SaveChanges();
             return StatusCode(201, value);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(long id)
+        {
+            SongRequest song = _context.SongRequests.FirstOrDefault(b => b.Id == id);
+            _context.SongRequests.Remove(song);
+            _context.SaveChanges();
+            return StatusCode(201, id);
+        }        
     }
 }

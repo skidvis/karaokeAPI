@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  db:
+    build: ./docker/db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: karaokeAPI
+      MYSQL_DATABASE: karaokeAPI
+      MYSQL_USER: karaoke
+      MYSQL_PASSWORD: karaokeAPI
+    ports:
+      - "3306:3306"  
+  web:
+    build: . 
+    ports: 
+      - 80:80
+    depends_on:
+      - db   

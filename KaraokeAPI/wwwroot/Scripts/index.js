@@ -1,5 +1,6 @@
 ﻿  var lines;
   var queue;
+  var urlParams = new URLSearchParams(window.location.search);
 
   $(document).ready( function() {
     $.get('/Scripts/songs.js', function(data) {
@@ -20,12 +21,22 @@
     $.ajax({
       url: "/api/queue",
       success:function(result){
+          $("#queue").html('');
+          
           if(result.length > 0){
-            console.log(result);
+            console.log(result);            
+
+            var admin = '';
+            var link = '';
+
             result.forEach(function(item){
-              link = "<li>" + item.song + "<br />" + item.singer + "</li>";
+              admin = urlParams.has('admin') ? ' - <span class="delete" data-id="' + item.id + '">delete</span>' : ''
+
+              link = "<li id='li-song-" + item.id + "' class='queue_song'><span class='song'>" + item.song + "</span><br /><span class='singer'>" + item.singer + "</span>" + admin + "</li>";
               $("#queue").append(link);
             });
+
+            $(".delete").bind('click', deleter);
           }                
         },
         error:function(xhr,status,error){
@@ -34,6 +45,18 @@
     });    
 
     setTimeout(get_queue, 2000);
+  }
+
+  function deleter(){
+    var id_to_delete = $(this).data("id");
+    $.ajax({
+      url: '/api/queue/' + id_to_delete,
+      type: 'DELETE',
+      success: function(result) {
+          $("#li-song-" + id_to_delete).css("color", "red");
+          console.log(result);
+      }
+  });
   }
 
   function toggle(){

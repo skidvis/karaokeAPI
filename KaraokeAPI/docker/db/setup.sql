@@ -1,0 +1,9 @@
+USE `karaokeAPI`;
+
+CREATE TABLE `SongRequests` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Singer` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `Song` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `Viewed` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
