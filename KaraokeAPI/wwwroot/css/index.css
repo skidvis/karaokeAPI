@@ -97,3 +97,16 @@ img.bg {
     height: auto;
     /* Set up positioning */
 }
+
+span.singer{
+    background-color:#ddd;
+    padding: 2px 10px;
+    border-radius: 25px;
+}
+
+.delete{
+    color: red;
+    text-decoration: underline;
+    font-style:italic;
+    cursor: pointer;
+}
