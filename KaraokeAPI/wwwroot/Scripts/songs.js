@@ -11259,7 +11259,9 @@ Brown, Chris - Take You Down.cdg
 Brown, Chris - With You -.cdg
 Brown, Chris - With You.cdg
 Bruce Springsteen - High Hopes.cdg
+Bruno Mars - 24K Magic - 51925.cdg
 Bruno Mars - Just The Way You Are.cdg
+Bruno Mars - That's What I Like - 52184.cdg
 Bryan Adams & Melanie C - When You're Gone.cdg
 Bryan Adams - I Do It For You.cdg
 Bryan White - Sittin' On Go.cdg
@@ -25619,6 +25621,8 @@ John, Elton - Sad Songs (Say So Much).cdg
 John, Elton - Tiny Dancer.cdg
 John, Olivia Newton - If You Love Me (Let Me Know).cdg
 Johnny Cash - Folsom Prison Blues - 6656.cdg
+Johnny Cash - I Walk the Line - 11585.cdg
+Johnny Cash - Ring Of Fire - 5476.cdg
 Johnny Hates Jazz - Shattered Dreams.cdg
 Jonas Blue & Dakota - Fast Car.cdg
 Jones, Billy - Yes We Have No Bananas.cdg
@@ -25750,6 +25754,7 @@ Lady Antebellum - Need You Now.cdg
 Lady Ga Ga & Colby O'Donis - Just Dance.cdg
 Lady Gaga & Beyonce - Telephone.cdg
 Lady Gaga - Bad Romance.cdg
+Lady Gaga - Grigio Girls - 52218.cdg
 Lady Gaga - Million Reasons - 51926.cdg
 Lady Gaga - Poker Face copy.cdg
 Lady Gaga - Poker Face.cdg
