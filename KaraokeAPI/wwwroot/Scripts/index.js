@@ -3,7 +3,8 @@
   var urlParams = new URLSearchParams(window.location.search);
 
   $(document).ready( function() {
-    $.get('/Scripts/songs.js', function(data) {
+    var songlist = 'https://raw.githubusercontent.com/skidvis/karaokeAPI/master/KaraokeAPI/wwwroot/Scripts/songs.js'
+    $.get(songlist, function(data) {
        lines = data.split("\n");
        get_query();
     }, 'text');
