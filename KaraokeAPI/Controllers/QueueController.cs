@@ -71,7 +71,7 @@ namespace karaokeAPI.Controllers
         public IEnumerable<Song> find_songs([FromBody]string value)
         {
             IEnumerable<Song> songs = _context.Songs.Where(b => b.Title.Contains(value)).Take(100);            
-            IEnumerable<Song> results = songs.ToList();
+            IEnumerable<Song> results = songs.OrderBy(s => s.Title).ToList();
 
             return results;
         }        
