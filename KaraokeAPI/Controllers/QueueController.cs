@@ -48,25 +48,6 @@ namespace karaokeAPI.Controllers
             return StatusCode(201, id);
         }        
 
-        [HttpGet][Route("api/refresh")]
-        public int update_song_list()
-        {           
-            _context.Songs.RemoveRange(_context.Songs);
-            _context.SaveChanges();
-
-            List<string> songs = System.IO.File.ReadAllLines(@"/code/app/wwwroot/Scripts/songs.js").ToList();
-            List<Song> songList = new List<Song>();
-
-            foreach (string song in songs)
-            {
-                songList.Add(new Song {Title = song});
-            }            
-            _context.Songs.AddRange(songList);
-            _context.SaveChanges();            
-            
-            return songs.Count;
-        }
-
         [HttpPost][Route("api/search")]
         public IEnumerable<Song> find_songs([FromBody]string value)
         {
