@@ -107,7 +107,7 @@
         dataType: "json",
         success:function(result){
             swal("Nice!", "You're all set!");
-            $(".actions").slideUp();
+            $("#resultset").text('');
         },
         error:function(xhr,status,error){
             swal({
