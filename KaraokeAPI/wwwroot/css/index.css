@@ -61,7 +61,6 @@ span.singer{
 
 .delete{
     color: red;
-    text-decoration: underline;
     font-style:italic;
     cursor: pointer;
 }
@@ -88,4 +87,16 @@ span.singer{
 
 #search-btn{
     width:100%;
+}
+
+.expando{
+    color: #ccc;
+}
+
+.queue-header{
+    font-weight: bold;
+}
+
+.ghost{
+    color: #ccc;
 }

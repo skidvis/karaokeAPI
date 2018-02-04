@@ -37,14 +37,17 @@
             var link = '';
 
             result.forEach(function(item){
-              admin = urlParams.has('admin') ? ' - <span class="delete" data-id="' + item.id + '">delete</span>' : ''
+              admin = urlParams.has('admin') ? ' - <span class="delete" data-id="' + item.id + '"><i class="fas fa-trash-alt"></i> delete</span>' : ''
 
-              link = "<li id='li-song-" + item.id + "' class='queue_song'><span class='song'>" + item.song + "</span><br /><span class='singer'>" + item.singer + "</span>" + admin + "</li>";
+              link = "<li id='li-song-" + item.id + "' class='queue_song'><span class='song'><i class='fas fa-music ghost'></i> " + item.song + "</span><br /><span class='singer'><i class='fas fa-user'></i> " + item.singer + "</span>" + admin + "</li>";
               $("#queue").append(link);
             });
 
             $(".delete").bind('click', deleter);
-          }                
+          }else{
+            link = "<li class='queue_song'><span class='song'>Would you believe nobody is in the queue??</span><br /><span class='singer'>Lead the charge!! Search for a song now!</span></li>";
+            $("#queue").append(link);            
+          }      
         },
         error:function(xhr,status,error){
           console.log("error:" + status);
@@ -149,9 +152,9 @@
       song = val.replace(".cdg", "")
       url = "https://www.google.com/#q=lyrics+" + encodeURIComponent(song);
       link = '<li>';
-      link += '<div class="song-title link" data-song-id="' + i + '">' + song + '</div>';
-      link += '<div class="row justify-content-center actions" id="result-' + i + '"><div class="col-3"><a class="btn btn-link btn-sm" target="_new" href="' + url + '">Find Lyrics</a></div>';
-      link += '<div class="col-3"><span class="queuelink btn btn-link btn-sm" data-song="' + song + '">Add To Queue</span></div></div>';
+      link += '<div class="song-title link" data-song-id="' + i + '"><i class="fas fa-plus-circle expando"></i> ' + song + '</div>';
+      link += '<div class="row justify-content-center actions" id="result-' + i + '"><div class="col-3"><a class="btn btn-link btn-sm" target="_new" href="' + url + '"><i class="fas fa-search"></i> Find Lyrics</a></div>';
+      link += '<div class="col-3"><span class="queuelink btn btn-link btn-sm" data-song="' + song + '"><i class="fas fa-plus"></i> Add To Queue</span></div></div>';
       link += '</li>';   
       $('#resultset').append(link);
     });
