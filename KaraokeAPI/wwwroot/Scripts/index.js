@@ -18,6 +18,10 @@
     });    
 
     setTimeout(get_queue, 2000);
+
+    $("#search-btn").bind("click", function(){
+      get_match($('#search').val());
+    });
   });
 
   function get_queue(){
@@ -64,7 +68,7 @@
 
   function toggle(){
     $(".actions").slideUp();
-    $(this.children[0]).slideDown();
+    $("#result-" + $(this).data("song-id")).slideDown();
   }
 
   function queue_song(){
@@ -119,7 +123,7 @@
     var urlParams = new URLSearchParams(window.location.search);
     if(urlParams.has('song'))
     {
-      $song = urlParams.get('song');
+      var $song = urlParams.get('song');
       $('#search').val($song);
       get_match($song);
     }
@@ -132,17 +136,26 @@
       }
       return value.toLowerCase().indexOf(data.toLowerCase()) != -1 
     });
+    
+    var $results = $('#results');
+    $results.val("Your search resulted in " + found.length + " songs.");
 
-    $('#div1').text('');
-    $('#results').text(found.length + " songs.");
+    var url = '';
+    var link = '';
+    var song = '';
 
+    $('#resultset').text('');
     $.each(found, function(i, val){
       song = val.replace(".cdg", "")
       url = "https://www.google.com/#q=lyrics+" + encodeURIComponent(song);
-      link = '<div><div class="link">' + song + '<ul class="actions"><li><a target="_new" href="' + url + '">Find Lyrics</a></li><li><span class="queuelink" data-song="' + song + '">Add To Queue</span></li></ul></div>';      
-      $('#div1').append(link);
+      link = '<li>';
+      link += '<div class="song-title link" data-song-id="' + i + '">' + song + '</div>';
+      link += '<div class="row justify-content-center actions" id="result-' + i + '"><div class="col-3"><a class="btn btn-link btn-sm" target="_new" href="' + url + '">Find Lyrics</a></div>';
+      link += '<div class="col-3"><span class="queuelink btn btn-link btn-sm" data-song="' + song + '">Add To Queue</span></div></div>';
+      link += '</li>';   
+      $('#resultset').append(link);
     });
-
+    $(".actions").hide();
     $(".link").bind('click', toggle);
     $(".queuelink").bind('click', queue_song);
   }
