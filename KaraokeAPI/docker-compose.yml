@@ -12,6 +12,8 @@ services:
       MYSQL_PASSWORD: karaokeAPI
     ports:
       - "3306:3306"  
+    volumes: 
+      - ./mysql/:/var/lib/mysql
   web:
     build: . 
     volumes:
