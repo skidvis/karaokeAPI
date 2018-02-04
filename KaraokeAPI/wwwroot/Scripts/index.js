@@ -133,15 +133,28 @@
   }
 
   function get_match(data){
-    var found = jQuery.grep(lines, function(value, i) {            
-      if(value.toLowerCase().indexOf(".mp3") != -1){
-        return false;
-      }
-      return value.toLowerCase().indexOf(data.toLowerCase()) != -1 
-    });
+    // var found = jQuery.grep(lines, function(value, i) {            
+    //   if(value.toLowerCase().indexOf(".mp3") != -1){
+    //     return false;
+    //   }
+    //   return value.toLowerCase().indexOf(data.toLowerCase()) != -1 
+    // });
+    var found = {};
     
+    $.ajax({
+      url: '/api/search',
+      type: 'POST',
+      data: JSON.stringify(data.toLowerCase()),
+      crossDomain: true,
+      contentType: "application/json",
+      dataType: "json",      
+      success: show_results
+    });    
+  }
+
+  function show_results(found){
     var $results = $('#results');
-    $results.val("Your search resulted in " + found.length + " songs.");
+    $results.text("Your search resulted in " + found.length + " songs.");
 
     var url = '';
     var link = '';
@@ -149,7 +162,7 @@
 
     $('#resultset').text('');
     $.each(found, function(i, val){
-      song = val.replace(".cdg", "")
+      song = val.title.replace(".cdg", "")
       url = "https://www.google.com/#q=lyrics+" + encodeURIComponent(song);
       link = '<li>';
       link += '<div class="song-title link" data-song-id="' + i + '"><i class="fas fa-plus-circle expando"></i> ' + song + '</div>';
@@ -160,5 +173,5 @@
     });
     $(".actions").hide();
     $(".link").bind('click', toggle);
-    $(".queuelink").bind('click', queue_song);
+    $(".queuelink").bind('click', queue_song);    
   }

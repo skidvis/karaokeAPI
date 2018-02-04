@@ -4,6 +4,7 @@ services:
   db:
     build: ./docker/db
     restart: always
+    command: --max_allowed_packet=32505856
     environment:
       MYSQL_ROOT_PASSWORD: karaokeAPI
       MYSQL_DATABASE: karaokeAPI

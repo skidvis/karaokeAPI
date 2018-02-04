@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace karaokeAPI.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
     public class QueueController : Controller
     {
 
@@ -21,7 +21,7 @@ namespace karaokeAPI.Controllers
         }
 
         // GET api/values
-        [HttpGet]
+        [HttpGet][Route("api/queue")]
         public IEnumerable<SongRequest> Get()
         {
             IEnumerable<SongRequest> songs = _context.SongRequests.Where(b => b.Viewed == false);            
@@ -31,7 +31,7 @@ namespace karaokeAPI.Controllers
         }
 
         // POST api/values
-        [HttpPost]
+        [HttpPost][Route("api/queue")]
         public IActionResult Post([FromBody]SongRequest value)
         {
             _context.SongRequests.Add(value);
@@ -39,13 +39,41 @@ namespace karaokeAPI.Controllers
             return StatusCode(201, value);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")][Route("api/queue/{id}")]
         public IActionResult Delete(long id)
         {
             SongRequest song = _context.SongRequests.FirstOrDefault(b => b.Id == id);
             _context.SongRequests.Remove(song);
             _context.SaveChanges();
             return StatusCode(201, id);
+        }        
+
+        [HttpGet][Route("api/refresh")]
+        public int update_song_list()
+        {           
+            _context.Songs.RemoveRange(_context.Songs);
+            _context.SaveChanges();
+
+            List<string> songs = System.IO.File.ReadAllLines(@"/code/app/wwwroot/Scripts/songs.js").ToList();
+            List<Song> songList = new List<Song>();
+
+            foreach (string song in songs)
+            {
+                songList.Add(new Song {Title = song});
+            }            
+            _context.Songs.AddRange(songList);
+            _context.SaveChanges();            
+            
+            return songs.Count;
+        }
+
+        [HttpPost][Route("api/search")]
+        public IEnumerable<Song> find_songs([FromBody]string value)
+        {
+            IEnumerable<Song> songs = _context.Songs.Where(b => b.Title.Contains(value)).Take(100);            
+            IEnumerable<Song> results = songs.ToList();
+
+            return results;
         }        
     }
 }

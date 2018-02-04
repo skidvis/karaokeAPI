@@ -13,11 +13,18 @@ namespace karaokeAPI.Models
         public bool Viewed { set; get; }
   }
 
+  public class Song{
+        [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string Title { set; get; }      
+  }
+
   public class SongContext : DbContext  
     {
         public SongContext(DbContextOptions<SongContext> options) : base(options){}
 
         public DbSet<SongRequest> SongRequests { get; set; }
+        public DbSet<Song> Songs { get; set; }
     }
 }
 
