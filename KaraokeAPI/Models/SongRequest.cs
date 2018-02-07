@@ -21,10 +21,11 @@ namespace karaokeAPI.Models
 
   public class SongContext : DbContext  
     {
-        public SongContext(DbContextOptions<SongContext> options) : base(options){}
+      public DbSet<SongRequest> SongRequests { get; set; }
+      public DbSet<Song> Songs { get; set; }
 
-        public DbSet<SongRequest> SongRequests { get; set; }
-        public DbSet<Song> Songs { get; set; }
+      protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+      => optionsBuilder.UseMySQL(AppSettingsProvider.ConnectionString);
     }
 }
 

@@ -100,3 +100,8 @@ span.singer{
 .ghost{
     color: #ccc;
 }
+
+.song-id{
+    float: right;
+    color: #ddd;
+}

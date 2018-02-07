@@ -10,6 +10,8 @@ using karaokeAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.EntityFrameworkCore;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.AspNetCore.DataProtection;
+using System.IO;
 
 
 namespace KaraokeAPI
@@ -18,15 +20,24 @@ namespace KaraokeAPI
     {
         public Startup(IConfiguration configuration){
             Configuration = configuration;
+            BuildAppSettingsProvider();
+        }
+
+        private void BuildAppSettingsProvider()
+        {
+            AppSettingsProvider.ConnectionString = Configuration.GetSection("ConnectionStrings")["DefaultConnection"];
+            AppSettingsProvider.AdminKey = Configuration.GetSection("Keys")["AdminKey"];
         }
 
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-        {
-            var connection = Configuration.GetSection("ConnectionStrings")["DefaultConnection"];
-            services.AddDbContext<SongContext>(options => options.UseMySQL(connection));
-            services.AddMvc();
+        {            
+            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddSession();
+            services.AddDataProtection()
+            .SetApplicationName("karaokieAPI")
+            .PersistKeysToFileSystem(new DirectoryInfo(@"/code/app/keys"));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -36,6 +47,7 @@ namespace KaraokeAPI
                 app.UseDeveloperExceptionPage();
             }
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

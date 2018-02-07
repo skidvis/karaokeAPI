@@ -22,6 +22,10 @@
     $("#search-btn").bind("click", function(){
       get_match($('#search').val());
     });
+
+    $("#add-btn").bind("click", function(){
+      manage_song($('#add').val());
+    });    
   });
 
   function get_queue(){
@@ -144,12 +148,27 @@
     $.ajax({
       url: '/api/search',
       type: 'POST',
-      data: JSON.stringify(data.toLowerCase()),
+      data: JSON.stringify(data),
       crossDomain: true,
       contentType: "application/json",
       dataType: "json",      
       success: show_results
     });    
+  }
+
+  function manage_song(data){    
+    $.ajax({
+      url: '/api/add',
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: "application/json",
+      dataType: "text",      
+      success: show_feedback
+    });    
+  }
+
+  function show_feedback(result){
+    $("#db-result").text(result);
   }
 
   function show_results(found){
@@ -165,8 +184,8 @@
       song = val.title.replace(".cdg", "")
       url = "https://www.google.com/#q=lyrics+" + encodeURIComponent(song);
       link = '<li>';
-      link += '<div class="song-title link" data-song-id="' + i + '"><i class="fas fa-plus-circle expando"></i> ' + song + '</div>';
-      link += '<div class="row justify-content-center actions" id="result-' + i + '"><div class="col-3"><a class="btn btn-link btn-sm" target="_new" href="' + url + '"><i class="fas fa-search"></i> Find Lyrics</a></div>';
+      link += '<div class="song-title link" data-song-id="' + val.id + '"><i class="fas fa-plus-circle expando"></i> ' + song + '<span class="song-id">' + val.id + '</span></div>';
+      link += '<div class="row justify-content-center actions" id="result-' + val.id + '"><div class="col-3"><a class="btn btn-link btn-sm" target="_new" href="' + url + '"><i class="fas fa-search"></i> Find Lyrics</a></div>';
       link += '<div class="col-3"><span class="queuelink btn btn-link btn-sm" data-song="' + song + '"><i class="fas fa-plus"></i> Add To Queue</span></div></div>';
       link += '</li>';   
       $('#resultset').append(link);
