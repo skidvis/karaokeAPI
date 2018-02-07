@@ -5,15 +5,12 @@ services:
     build: ./docker/db
     restart: always
     command: --max_allowed_packet=32505856
-    environment:
-      MYSQL_ROOT_PASSWORD: karaokeAPI
-      MYSQL_DATABASE: karaokeAPI
-      MYSQL_USER: karaoke
-      MYSQL_PASSWORD: karaokeAPI
+    env_file: .env
     ports:
       - "3306:3306"  
     volumes: 
       - ./mysql/:/var/lib/mysql
+      - ./test/:/test
   web:
     build: . 
     volumes:
@@ -22,3 +19,7 @@ services:
       - 80:80
     depends_on:
       - db   
+  dropbox:
+    image: skidvis/mysql-backup-dropbox
+    restart: always
+    env_file: .env
