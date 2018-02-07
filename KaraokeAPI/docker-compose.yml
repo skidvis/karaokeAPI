@@ -10,7 +10,7 @@ services:
       - "3306:3306"  
     volumes: 
       - ./mysql/:/var/lib/mysql
-      - ./test/:/test
+      - ./sql/:/sql/
   web:
     build: . 
     volumes:
@@ -23,3 +23,5 @@ services:
     image: skidvis/mysql-backup-dropbox
     restart: always
     env_file: .env
+    volumes:
+      - ./sql/:/sql/
