@@ -169,6 +169,7 @@
 
   function show_feedback(result){
     $("#db-result").text(result);
+    $('#add').val('');
   }
 
   function show_results(found){
