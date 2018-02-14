@@ -102,6 +102,12 @@
         return false
       }
 
+      ga('send', 'event', {
+        eventCategory: 'Queue Song',
+        eventAction: 'click',
+        eventLabel: this.text
+      });      
+
       $.ajax({
         type: "POST",
         url: "/api/queue",
