@@ -143,13 +143,13 @@
   }
 
   function get_match(data){
-    // var found = jQuery.grep(lines, function(value, i) {            
-    //   if(value.toLowerCase().indexOf(".mp3") != -1){
-    //     return false;
-    //   }
-    //   return value.toLowerCase().indexOf(data.toLowerCase()) != -1 
-    // });
     var found = {};
+
+    ga('send', 'event', {
+      eventCategory: 'Search',
+      eventAction: 'click',
+      eventLabel: data
+    });     
     
     $.ajax({
       url: '/api/search',
