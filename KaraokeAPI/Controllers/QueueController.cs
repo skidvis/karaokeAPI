@@ -46,7 +46,22 @@ namespace karaokeAPI.Controllers
                 db.SaveChanges();                
             }
             return StatusCode(201, id);
-        }        
+        }      
+
+        [HttpPost("{id}")][Route("api/kick/{id}")]
+        public IActionResult Kick(long id)
+        {
+            using(var db = new SongContext()){
+                SongRequest song = db.SongRequests.FirstOrDefault(b => b.Id == id);
+                db.SongRequests.Remove(song);
+                SongRequest newSong = new SongRequest();
+                newSong.Singer = song.Singer;
+                newSong.Song = song.Song;
+                db.SongRequests.Add(newSong);
+                db.SaveChanges();             
+            }
+            return StatusCode(201, id);
+        }           
 
         [HttpPost][Route("api/search")]
         public IEnumerable<Song> find_songs([FromBody]string value)

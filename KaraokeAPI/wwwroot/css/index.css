@@ -65,6 +65,12 @@ span.singer{
     cursor: pointer;
 }
 
+.kick{
+    color:orange;
+    font-style:italic;
+    cursor: pointer;
+}
+
 #header{
     border-bottom: solid 5px #e24b4b;
     margin-bottom: 5px;

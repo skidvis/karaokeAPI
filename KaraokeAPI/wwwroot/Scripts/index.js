@@ -41,13 +41,17 @@
             var link = '';
 
             result.forEach(function(item){
-              admin = urlParams.has('admin') ? ' - <span class="delete" data-id="' + item.id + '"><i class="fas fa-trash-alt"></i> delete</span>' : ''
+              if(urlParams.has('admin')){
+                admin = ' - <span class="delete" data-id="' + item.id + '"><i class="fas fa-trash-alt"></i></span>'
+                admin += ' - <span class="kick" data-id="' + item.id + '"><i class="fas fa-arrow-down"></i></span>'
+              }              
 
               link = "<li id='li-song-" + item.id + "' class='queue_song'><span class='song'><i class='fas fa-music ghost'></i> " + item.song + "</span><br /><span class='singer'><i class='fas fa-user'></i> " + item.singer + "</span>" + admin + "</li>";
               $("#queue").append(link);
             });
 
             $(".delete").bind('click', deleter);
+            $(".kick").bind('click', kicker);
           }else{
             link = "<li class='queue_song'><span class='song'>Would you believe nobody is in the queue??</span><br /><span class='singer'>Lead the charge!! Search for a song now!</span></li>";
             $("#queue").append(link);            
@@ -70,8 +74,19 @@
           $("#li-song-" + id_to_delete).css("color", "red");
           console.log(result);
       }
-  });
+    });
   }
+
+  function kicker(){
+    var id_to_delete = $(this).data("id");
+    $.ajax({
+      url: '/api/kick/' + id_to_delete,
+      type: 'POST',
+      success: function(result) {
+          $("#li-song-" + id_to_delete).css("color", "green");
+      }
+    });
+  }  
 
   function toggle(){
     $(".actions").slideUp();
@@ -82,6 +97,8 @@
     event.preventDefault();
     event.stopPropagation();
 
+    var lastUser = localStorage.getItem("lastUser");
+
     swal({
       title: "Who the heck are you?",
       text: $(this).data("song"),
@@ -91,6 +108,7 @@
       showLoaderOnConfirm: true,
       animation: "slide-from-top",
       inputPlaceholder: "Write your name!",
+      inputValue: lastUser,
       html: true, 
       data: $(this).data("song")
     },
@@ -102,6 +120,10 @@
         return false
       } 
       
+      if(lastUser == null){
+        localStorage.setItem("lastUser", inputValue);
+      }
+
       gtag('event', this.text, {
         'event_category': 'Queue Song',
         'event_label': inputValue
