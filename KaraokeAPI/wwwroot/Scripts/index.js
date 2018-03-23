@@ -100,13 +100,12 @@
       if (inputValue === "") {
         swal.showInputError("You need to write something!");
         return false
-      }
-
-      ga('send', 'event', {
-        eventCategory: 'Queue Song',
-        eventAction: 'click',
-        eventLabel: this.text
-      });      
+      } 
+      
+      gtag('event', 'click', {
+        'event_category': 'Queue Song',
+        'event_label': this.text
+      });
 
       $.ajax({
         type: "POST",
@@ -143,13 +142,12 @@
   }
 
   function get_match(data){
-    var found = {};
+    var found = {};    
 
-    ga('send', 'event', {
-      eventCategory: 'Search',
-      eventAction: 'click',
-      eventLabel: data
-    });     
+    gtag('event', 'click', {
+      'event_category': 'Search',
+      'event_label': data
+    });
     
     $.ajax({
       url: '/api/search',
