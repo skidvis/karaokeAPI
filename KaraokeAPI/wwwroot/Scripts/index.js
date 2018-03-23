@@ -102,9 +102,9 @@
         return false
       } 
       
-      gtag('event', 'click', {
+      gtag('event', this.text, {
         'event_category': 'Queue Song',
-        'event_label': this.text
+        'event_label': inputValue
       });
 
       $.ajax({
@@ -144,7 +144,7 @@
   function get_match(data){
     var found = {};    
 
-    gtag('event', 'click', {
+    gtag('event', data, {
       'event_category': 'Search',
       'event_label': data
     });
