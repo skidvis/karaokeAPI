@@ -1,7 +1,7 @@
-var app = {};
+//var app = {};
 
 $(document).ready( function() {
-  app = new Vue({
+  var app = new Vue({
     el: '#panes',
     data: {
       searchTerm: '',
@@ -15,6 +15,10 @@ $(document).ready( function() {
     }, 
     created: function(){
       this.get_queue();
+      var urlParams = new URLSearchParams(window.location.search);
+      if(urlParams.has('admin')){
+        this.isAdmin = true;
+      }       
     },
     methods:{
       get_match: function(){
