@@ -11,7 +11,8 @@ $(document).ready( function() {
       visible: '',
       isAdmin: false,
       inBox: '',
-      feedBack: ''
+      feedBack: '',
+      searchResults: ''
     }, 
     created: function(){
       this.get_queue();
@@ -41,7 +42,9 @@ $(document).ready( function() {
         });    
       },
       show_results: function(found){
-        this.songs = found;             
+        console.log("returned");
+        this.songs = found;      
+        this.searchResults = "Your search resulted in " + this.songs.length + " songs."       
       },
       show_queue: function(results){
         this.queue = results; 
