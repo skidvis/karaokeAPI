@@ -47,8 +47,9 @@
                             <li v-for="song in songs" :key="song.id">
                                 <div class="song-title link" :data-song-id="song.id" v-on:click="show_song(song.id)"><i class="fas fa-plus-circle expando"></i> {{song.title}}<span class="song-id">{{song.id}}</span></div>
                                 <div class="row justify-content-center actions" :id="'result-' + song.id " v-show="visible === song.id">
-                                    <div class="col-3"><a class="btn btn-link btn-sm" target="_new" :href="url + encodeURIComponent(song.title)"><i class="fas fa-search"></i> Find Lyrics</a></div>
-                                    <div class="col-3"><span class="queuelink btn btn-link btn-sm" :data-song="song.title" v-on:click="queue_song(song.title)"><i class="fas fa-plus"></i> Add To Queue</span></div>
+                                    <div class="col"><a class="btn btn-link btn-sm" target="_new" :href="url + encodeURIComponent(song.title)"><i class="fas fa-search"></i> Find Lyrics</a></div>
+                                    <div class="col"><span class="queuelink btn btn-link btn-sm" :data-song="song.title" v-on:click="queue_song(song.title)"><i class="fas fa-plus"></i> Add To Queue</span></div>  
+                                    <div class="col"><span class="queuelink btn btn-link btn-sm" :data-song="song.title" v-on:click="add_favorite(song.title)"><i class="fas fa-heart"></i> Add To Favs</span></div>                                    
                                 </div>
                             </li>                            
                         </ul>
@@ -67,13 +68,16 @@
                             </div>                                                                  
                         </div>
                         <br />
-                    }                    
-                    <div class="form-row">
-                        <div class="col">
-                            <div class="form-control alert-primary queue-header"><i class="fas fa-list-ol"></i> Who's up next?</div>
-                        </div>
-                    </div>
-                    <ul id="queue">
+                    }                   
+                    <div class="row">
+                        <div id="menu" class="col">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item active"><a class="nav-link active" id="queue_link" v-on:click="show_tab('queue')">Queue</a></li>
+                                <li class="nav-item"><a class="nav-link" id="favorites_link" v-on:click="show_tab('favorites')">Favorites<span class="fav_count">{{favorites.length}}</span></a></li>
+                            </ul>
+                        </div>                
+                    </div>                     
+                    <ul id="queue" v-show="tabShown == 'queue'">
                         <li v-for="item in queue" :key="item.id" :id="'li-song-' + item.id" class='queue_song'>
                             <span class='song'><i class='fas fa-music ghost'></i> {{item.song}}</span>
                             <br />
@@ -83,6 +87,14 @@
                         </li>
                         <li v-if="queue.length < 1" class='queue_song'><span class='song'>Would you believe nobody is in the queue??</span><br /><span class='singer'>Lead the charge!! Search for a song now!</span></li>
                     </ul>
+                    <ul id="favorites" v-show="tabShown == 'favorites'">
+                        <li v-for="item in favorites" :key="item.id" :id="'li-song-' + item.id" class='queue_song'>
+                            <span class='song'><i class='fas fa-music ghost'></i> {{item.title}}</span>
+                            <br /><span class="queuelink btn btn-link btn-sm" :data-song="item.title" v-on:click="queue_song(item.title)"><i class="fas fa-plus"></i> Add To Queue</span>
+                            &nbsp;-&nbsp;<span class="queuelink btn btn-link btn-sm" :data-song="item.title" v-on:click="remove_favorite(item.title)"><i class="fas fa-heart"></i> Remove Favorite</span>
+                        </li>
+                        <li v-if="favorites.length < 1" class='queue_song'><span class='song'>No songs are your favorites??</span></li>
+                    </ul>                    
                 </div>
             </div>
         </div>  

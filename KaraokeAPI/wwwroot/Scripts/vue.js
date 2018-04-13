@@ -12,7 +12,9 @@ $(document).ready( function() {
       isAdmin: false,
       inBox: '',
       feedBack: '',
-      searchResults: ''
+      searchResults: '',
+      tabShown: 'queue',
+      favorites: []
     }, 
     created: function(){
       this.get_queue();
@@ -20,8 +22,43 @@ $(document).ready( function() {
       if(urlParams.has('admin')){
         this.isAdmin = true;
       }       
+      if(localStorage.getItem("favorites")){
+        this.favorites = JSON.parse(localStorage.getItem("favorites"));
+      }
     },
     methods:{
+      show_tab: function(tab_name){
+        this.tabShown = tab_name;
+        if(tab_name == 'queue'){
+          $('#queue_link').addClass('active');
+          $('#favorites_link').removeClass('active');
+        }else{
+          $('#queue_link').removeClass('active');
+          $('#favorites_link').addClass('active');
+        }
+      },
+      add_favorite: function(song_title){
+        var found_match = jQuery.grep(this.favorites, function(song) {
+          return song.title === song_title;
+        })
+        if(found_match.length == 0){
+          this.favorites.push({title: song_title});
+          localStorage.setItem("favorites", JSON.stringify(this.favorites));
+          gtag('event', song_title, {
+            'event_category': 'Favorite',
+            'event_label': song_title
+          });          
+        }
+      },
+      remove_favorite: function(song_title){
+        var found_match = jQuery.grep(this.favorites, function(song) {
+          return song.title !== song_title;
+        })
+        if(found_match.length){
+          this.favorites = found_match;
+          localStorage.setItem("favorites", JSON.stringify(this.favorites));
+        }
+      },
       get_match: function(){
         var data = this.searchTerm;
         var found = {};    
@@ -99,6 +136,7 @@ $(document).ready( function() {
                 swal("Nice!", "You're all set!");
                 app.searchTerm = '';
                 app.songs = '';
+                app.show_tab('queue');
             },
             error:function(xhr,status,error){
                 swal({

@@ -34,7 +34,7 @@
     margin: 0
 }
 
-#djside li {
+#djside li.queue_song{
     padding-bottom: 10px;
 }
 
@@ -45,6 +45,19 @@ img.bg {
     width: 100%;
     height: auto;
     /* Set up positioning */
+}
+
+#queue, #favorites{
+    border: solid 1px #ddd;
+    border-top: none;
+}
+
+.fav_count{
+    margin-left: 5px;
+    padding: 0 5px;
+    background-color: #ddd;
+    border-radius: 20px;
+    color: #777;
 }
 
 span.singer{
